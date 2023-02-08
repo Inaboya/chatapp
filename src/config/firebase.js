@@ -1,12 +1,7 @@
-// Import the functions you need from the SDKs you need
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: 'AIzaSyBnmadRLu4ofjEkHwJ6zcDsh8p31cs44NQ',
   authDomain: 'free-chat-app-d73d6.firebaseapp.com',
@@ -18,15 +13,6 @@ const firebaseConfig = {
   databaseURL: 'https://free-chat-app-d73d6-default-rtdb.firebaseio.com/',
 };
 
-const db = firebase.firestore();
-
-window.db = db;
-
-db.settings({
-  timestampsInSnapshots: true,
-});
-
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);

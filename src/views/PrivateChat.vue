@@ -224,6 +224,7 @@
                 ></span>
               </div>
               <textarea
+                @keyup.enter="sendMessage"
                 name=""
                 class="form-control type_msg"
                 placeholder="Type your message..."

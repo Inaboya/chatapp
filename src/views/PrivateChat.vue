@@ -223,13 +223,13 @@
                   ><i class="fas fa-paperclip"></i
                 ></span>
               </div>
-              <textarea
+              <input
                 @keyup.enter="sendMessage"
                 v-model="message"
                 name=""
                 class="form-control type_msg"
                 placeholder="Type your message..."
-              ></textarea>
+              />
               <div class="input-group-append">
                 <span class="input-group-text send_btn"
                   ><i class="fas fa-location-arrow"></i
@@ -254,18 +254,36 @@ export default {
   },
 
   methods: {
-    async saveMessage() {
+    async sendMessage() {
       // save to firestore
 
-      await db.collectio('messages').add({
+      await db.collection('messages').add({
         message: this.message,
+        createdAt: new Date(),
       });
+
+      this.message = null;
       try {
       } catch (error) {
         console.log(error);
       }
     },
+
+    async fetchMessages() {
+      const querySnapshot = await db
+        .collection('messages')
+        .orderBy('createdAt', 'desc')
+        .limit(25)
+        .get();
+      let messages = [];
+
+      querySnapshot.forEach((doc) => {
+        messages.push(doc.data());
+      });
+    },
   },
+
+  created() {},
 };
 </script>
 

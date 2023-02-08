@@ -15,6 +15,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+firebase.firestore().settings({ timestampsInSnapshots: true });
+
+window.db = firebase.firestore();
+
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
 export default firebase;

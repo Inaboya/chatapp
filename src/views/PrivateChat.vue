@@ -225,6 +225,7 @@
               </div>
               <textarea
                 @keyup.enter="sendMessage"
+                v-model="message"
                 name=""
                 class="form-control type_msg"
                 placeholder="Type your message..."
@@ -245,6 +246,18 @@
 <script>
 export default {
   name: 'PrivateChat',
+  components: {},
+  data() {
+    return {
+      message: null,
+    };
+  },
+
+  methods: {
+    async saveMessage() {
+      // save to firestore
+    },
+  },
 };
 </script>
 

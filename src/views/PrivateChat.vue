@@ -256,6 +256,14 @@ export default {
   methods: {
     async saveMessage() {
       // save to firestore
+
+      await db.collectio('messages').add({
+        message: this.message,
+      });
+      try {
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

@@ -219,21 +219,6 @@ export default {
     },
 
     fetchMessages() {
-      // const querySnapshot = await db
-      //   .collection('messages')
-      //   .orderBy('createdAt')
-      //   .onSnapshot();
-      // let messages = [];
-
-      // querySnapshot.forEach((doc) => {
-      //   console.log(doc.data(), 'incoming messages');
-      //   messages.push(doc.data());
-      // });
-
-      // this.messageList = messages;
-
-      // console.log(this.messageList, 'message list');
-
       db.collection('messages')
         .orderBy('createdAt')
         .onSnapshot((querySnapshot) => {

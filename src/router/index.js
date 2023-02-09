@@ -6,6 +6,12 @@ const routes = [
     name: 'PrivateChat',
     component: () => import('../views/PrivateChat.vue'),
   },
+
+  {
+    path: '/login',
+    name: 'AuthComponent',
+    component: () => import('../views/AuthComponent'),
+  },
 ];
 
 const router = createRouter({

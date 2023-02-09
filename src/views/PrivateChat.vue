@@ -192,6 +192,7 @@
 </template>
 
 <script>
+import firebase from 'firebase/compat/app';
 export default {
   name: 'PrivateChat',
   components: {},
@@ -199,6 +200,7 @@ export default {
     return {
       message: null,
       messageList: [],
+      authUser: {},
     };
   },
 
@@ -235,6 +237,18 @@ export default {
 
   created() {
     this.fetchMessages();
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          next();
+        } else {
+          vm.$router.push('/login');
+        }
+      });
+    });
   },
 };
 </script>

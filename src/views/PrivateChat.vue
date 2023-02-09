@@ -154,10 +154,16 @@
                   alt="sunil"
                 />
               </div>
-              <div class="received_msg">
+              <div
+                :class="
+                  msg.authorEmail === authUser.email
+                    ? 'sent_msg'
+                    : 'received_msg'
+                "
+              >
                 <div class="received_withd_msg">
                   <p>{{ msg.message }}</p>
-                  <span class="time_date">{{}}</span>
+                  <span class="time_date"> {{ msg.author }}</span>
                 </div>
               </div>
             </div>
@@ -184,8 +190,8 @@
         <a
           target="_blank"
           href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/"
-          >Sunil Rajput</a
-        >
+          >David Momoh
+        </a>
       </p>
     </div>
   </div>
@@ -205,13 +211,22 @@ export default {
   },
 
   methods: {
+    scrollToBottom() {
+      let box = document.getQuerySelector('.msg_history');
+
+      box.scrollTop = box.scrollHeight;
+    },
     async sendMessage() {
       // save to firestore
 
       await db.collection('messages').add({
         message: this.message,
+        author: this.authUser.displayName,
+        authorEmail: this.authUser.email,
         createdAt: new Date(),
       });
+
+      this.scrollToBottom();
 
       this.message = null;
       try {
@@ -230,12 +245,24 @@ export default {
             messages.push(doc.data());
           });
 
+          setTimeout(() => {
+            this.scrollToBottom();
+          }, 1000);
+
           this.messageList = messages;
         });
     },
   },
 
   created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.authUser = user;
+        console.log(this.authUser, 'ggg');
+      } else {
+        this.authUser = {};
+      }
+    });
     this.fetchMessages();
   },
 
